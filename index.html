@@ -77,7 +77,13 @@ html,body{height:100%;background:#E3DBCD}
  .fm-copy{bottom:calc(132px + env(safe-area-inset-bottom))!important}
  .fm-nav{padding-top:max(34px,calc(env(safe-area-inset-top) + 18px))!important;row-gap:14px!important}
  .fm-foot{padding-bottom:max(34px,calc(env(safe-area-inset-bottom) + 24px))!important}
- .fm-final{padding-bottom:calc(96px + env(safe-area-inset-bottom))!important}
+ /* Финал помещается в экран целиком: блок плотнее, без прокрутки внутри. */
+ .fm-final{padding:max(60px,calc(env(safe-area-inset-top) + 44px)) 16px calc(40px + env(safe-area-inset-bottom))!important}
+ .fm-final>div{gap:16px!important;padding:22px!important;border-radius:22px!important}
+ .fm-final h2{font-size:36px!important}
+ .fm-final p{font-size:15px!important;line-height:1.45!important}
+ .fm-rows{gap:8px;font-size:15px}
+ .fm-final .fm-cta{min-height:48px!important}
 }
 /* Финальный блок: строки разделены воздухом, без линий-разделителей. */
 .fm-rows{display:flex;flex-direction:column;gap:14px;font-size:16px}
@@ -573,6 +579,6 @@ __update();
 document.querySelector('.fm-logo').addEventListener('click', (e) => { e.preventDefault(); document.getElementById('fm-scroll').scrollTo({ top: 0, behavior: 'smooth' }); });
 
 </script>
-<script src="concept-card.js" defer data-category="функциональная кофейня" data-tone="light" data-position="bl" data-order='.fm-final a.fm-cta:not(.fm-route)' data-plain='.fm-nav nav a[href="#"], .fm-route'></script>
+<script src="concept-card.js?v=7d9bf3a7" defer data-category="функциональная кофейня" data-tone="light" data-position="bl" data-order='.fm-final a.fm-cta:not(.fm-route)' data-plain='.fm-nav nav a[href="#"], .fm-route'></script>
 </body>
 </html>
