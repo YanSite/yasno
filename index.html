@@ -77,10 +77,10 @@ html,body{height:100%;background:#E3DBCD}
  .fm-copy{bottom:calc(132px + env(safe-area-inset-bottom))!important}
  /* Сдвиг текста каждой сцены вниз — по указанию владельца 2026-10-27 (экран 3 без сдвига). */
  .fm-txt[data-scene="0"]{top:20px!important}
- .fm-txt[data-scene="1"]{top:30px!important}
+ .fm-txt[data-scene="1"]{top:42px!important}
  .fm-txt[data-scene="3"]{top:10px!important}
- .fm-txt[data-scene="4"]{top:30px!important}
- .fm-txt[data-scene="5"]{top:30px!important}
+ .fm-txt[data-scene="4"]{top:50px!important}
+ .fm-txt[data-scene="5"]{top:50px!important}
  .fm-nav{padding-top:max(34px,calc(env(safe-area-inset-top) + 18px))!important;row-gap:14px!important}
  .fm-foot{padding-bottom:max(34px,calc(env(safe-area-inset-bottom) + 24px))!important}
  /* Финал помещается в экран целиком: блок плотнее, без прокрутки внутри. */
@@ -473,7 +473,7 @@ class Component extends DCLogic {
       const vw = 1000, vh = 1000 / Math.max(0.1, a);
       const side = 1;
       if (a >= 1) cam.setViewOffset(vw, vh, -vw * 0.2 * Math.min(1, side), 0, vw, vh);
-      else cam.setViewOffset(vw, vh, 0, vh * (0.16 + 0.04 * lift), vw, vh);
+      else cam.setViewOffset(vw, vh, 0, vh * (0.16 + 0.04 * lift * smooth(0.5, 0.86, sp)), vw, vh);
 
       const tod = sp;
       if (tod < 0.5) grade.copy(cMorning).lerp(cDay, smooth(0.05, 0.5, tod)); else grade.copy(cDay).lerp(cEve, smooth(0.62, 0.95, tod));
