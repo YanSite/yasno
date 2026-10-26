@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ясно — Концепт сайта функциональной кофейни · Есть что показать</title>
+<meta name="description" content="Концепт сайта функциональной кофейни. Один стол, один день: от утренней чашки до вечернего чая. Сделала команда «Есть что показать».">
+<meta name="color-scheme" content="only light">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:url" content="https://yansite.github.io/yasno/">
+<meta property="og:title" content="Ясно — Концепт сайта функциональной кофейни">
+<meta property="og:description" content="Концепт сайта функциональной кофейни. Один стол, один день: от утренней чашки до вечернего чая. Сделала команда «Есть что показать».">
+<meta property="og:image" content="https://yansite.github.io/yasno/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#E3DBCD">
+<link rel="icon" type="image/png" href="icon-48.png">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="preload" as="script" href="vendor/three.min.js">
+<link rel="preload" as="image" href="assets/images/hero.webp">
+<link rel="preload" as="image" href="assets/images/linen.webp" crossorigin="anonymous">
+<link rel="preload" as="image" href="assets/images/cappuccino.webp" crossorigin="anonymous">
+<link rel="preload" as="image" href="assets/images/granola.webp" crossorigin="anonymous">
+<link rel="preload" as="font" type="font/woff2" href="fonts/jost-cyrillic.woff2" crossorigin>
+<link rel="stylesheet" href="fonts/fonts.css">
+<style>
+body{margin:0}
+a{color:#2B241D}a:hover{color:#7A3E1D}
+.fm-stage{background-color:#E3DBCD;background-image:url(assets/images/hero.webp);background-size:cover;background-position:right center}
+.fm-final{background-color:#D9B98F;background-image:url(assets/images/table.webp);background-size:cover;background-position:right center}
+.fm-scroll{scrollbar-width:none;scroll-snap-type:y mandatory;overscroll-behavior:contain}
+.fm-panel{height:100vh;scroll-snap-align:start;scroll-snap-stop:always;position:relative;z-index:0}
+#fm-visit{scroll-snap-align:start;scroll-snap-stop:always;z-index:2}
+.fm-scroll::-webkit-scrollbar{display:none}
+.fm-txt{transition:opacity 1.3s cubic-bezier(.33,0,.2,1),transform 1.8s cubic-bezier(.22,1,.36,1),filter 1.3s ease}
+.fm-cv{transition:opacity 1.4s ease}
+.fm-dot{transition:width .6s cubic-bezier(.16,1,.3,1),background .6s}
+.fm-nav a{text-decoration:none;border-radius:999px;transition:background .35s}
+.fm-nav a:hover{background:rgba(255,255,255,.6)}
+.fm-cta{transition:transform .5s cubic-bezier(.16,1,.3,1),box-shadow .5s}
+.fm-cta:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(43,36,29,.22)}
+@keyframes fm-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(7px)}}
+.fm-bob{animation:fm-bob 2.2s ease-in-out infinite}
+@media (max-width: 640px){
+ .fm-copy{left:20px !important;right:20px !important;top:auto !important;bottom:110px !important;max-width:none !important;transform:none !important}
+ .fm-scrim{display:block !important}
+ .fm-side{display:none !important}
+ .fm-h{font-size:44px !important}
+ .fm-dots,.fm-bob{display:none !important}
+}
+@media (prefers-reduced-motion: reduce){.fm-bob{animation:none}}
+
+html,body{height:100%;background:#E3DBCD}
+.fm-cv{opacity:0}.fm-cv.is-ready{opacity:1}
+.fm-txt{opacity:0;transform:translateY(28px);filter:blur(8px);pointer-events:none;transition-delay:0s}
+.fm-txt.is-past{transform:translateY(-28px)}
+.fm-txt.is-on{opacity:1;transform:none;filter:none;pointer-events:auto;transition-delay:.9s}
+.fm-dot{display:block;height:2px;width:14px;background:rgba(43,36,29,.3);border-radius:2px}
+.fm-dot.is-on{width:44px;background:#2B241D}
+#fm-hint{transition:opacity .6s}
+/* Финальный блок: строки разделены воздухом, без линий-разделителей. */
+.fm-rows{display:flex;flex-direction:column;gap:14px;font-size:16px}
+.fm-rows>div{display:flex;justify-content:space-between;gap:16px}
+.fm-rows span:first-child{opacity:.7}
+/* Метка «Концепт»: на десктопе над подсказкой «листайте», на телефоне — справа от логотипа (внизу кнопка заказа). */
+concept-card{--cc-font:'Jost','Futura',system-ui,sans-serif;--cc-left:clamp(14px,calc(3.4vw - 6px),42px);--cc-bottom:66px}
+@media (max-width: 640px){concept-card{--cc-left:auto;--cc-bottom:auto;--cc-top:max(16px,env(safe-area-inset-top));--cc-right:12px}}
+</style>
+<script src="vendor/three.min.js"></script>
+</head>
+<body>
+<div id="fm-scroll" class="fm-scroll" style="height: 100vh; overflow-y: auto; overflow-x: hidden; color: #2B241D; font-family: 'Jost', 'Futura', system-ui, sans-serif; background: #E3DBCD">
+  <div style="position: relative">
+    <div data-host="1" class="fm-stage" style="position: sticky; top: 0; height: 100vh; margin-bottom: -100vh; overflow: hidden; z-index: 1">
+      <canvas id="fm-canvas" aria-hidden="true" class="fm-cv" style="position: absolute; inset: 0; width: 100%; height: 100%; display: block"></canvas>
+      <div aria-hidden="true" style="position: absolute; inset: 0; pointer-events: none; background: radial-gradient(120% 90% at 55% 45%, rgba(0,0,0,0) 55%, rgba(40,26,14,.28) 100%)"></div>
+      <svg aria-hidden="true" width="100%" height="100%" style="position: absolute; inset: 0; pointer-events: none; opacity: .1; mix-blend-mode: multiply">
+        <filter id="fm-grain"><feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="2" stitchTiles="stitch"></feTurbulence><feColorMatrix type="saturate" values="0"></feColorMatrix></filter>
+        <rect width="100%" height="100%" filter="url(#fm-grain)"></rect>
+      </svg>
+
+      <header class="fm-nav" style="position: absolute; z-index: 3; left: 0; right: 0; top: 0; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; padding: 24px clamp(20px, 3.4vw, 48px); font-size: 16px">
+        <a href="#" class="fm-logo" style="display: flex; align-items: baseline; gap: 10px">
+          <span style="font-size: 30px; font-weight: 500; letter-spacing: -0.03em; line-height: 1">ясно</span>
+          <span style="font-size: 13px; opacity: .85">функциональная кофейня</span>
+        </a>
+        <nav aria-label="Основное меню" style="display: flex; flex-wrap: wrap; gap: 4px; padding: 4px; border-radius: 999px; background: rgba(255,255,255,.42); backdrop-filter: blur(14px)">
+          <a href="#" style="padding: 10px 16px">меню</a>
+          <a href="#" style="padding: 10px 16px">кбжу</a>
+          <a href="#" style="padding: 10px 16px">адреса</a>
+        </nav>
+      </header>
+
+      <div class="fm-side" aria-hidden="true" style="position: absolute; z-index: 1; left: 0; top: 0; bottom: 0; width: 52%; pointer-events: none; background: linear-gradient(90deg, rgba(227,219,205,.94) 0%, rgba(227,219,205,.82) 48%, rgba(227,219,205,0) 100%)"></div>
+      <div class="fm-scrim" aria-hidden="true" style="display: none; position: absolute; z-index: 1; left: 0; right: 0; bottom: 0; height: 62%; pointer-events: none; background: linear-gradient(180deg, rgba(227,219,205,0) 0%, rgba(227,219,205,.86) 38%, rgba(227,219,205,.95) 100%)"></div>
+      <div class="fm-copy" style="position: absolute; z-index: 2; left: clamp(20px, 3.4vw, 48px); top: 50%; max-width: 560px; transform: translateY(-50%); pointer-events: none">
+        
+          <div class="fm-txt is-on" data-scene="0" style="position: relative; left: 0; top: 0; width: 100%; display: flex; flex-direction: column; gap: 20px">
+            <span style="display: flex; align-items: center; gap: 14px; font-size: 14px; letter-spacing: .06em"><span style="display: block; width: 44px; height: 1px; background: currentColor"></span>функциональная кофейня</span>
+            <h1 class="fm-h" style="margin: 0; font-weight: 300; font-size: clamp(48px, 6.2vw, 100px); line-height: .92; letter-spacing: -0.045em; text-wrap: balance">всё на столе. всё честно</h1>
+            <p style="margin: 0; max-width: 420px; font-size: 18px; line-height: 1.55">Один стол, один день. Листайте, и мы покажем, что на нём будет с утра до вечера.</p>
+            <span style="font-size: 14px; opacity: .85; font-variant-numeric: tabular-nums"></span>
+          </div>
+        
+          <div class="fm-txt" data-scene="1" style="position: absolute; left: 0; top: 0; width: 100%; display: flex; flex-direction: column; gap: 20px">
+            <span style="display: flex; align-items: center; gap: 14px; font-size: 14px; letter-spacing: .06em"><span style="display: block; width: 44px; height: 1px; background: currentColor"></span>08:00 · утро</span>
+            <h2 class="fm-h" style="margin: 0; font-weight: 300; font-size: clamp(48px, 6.2vw, 100px); line-height: .92; letter-spacing: -0.045em; text-wrap: balance">начинается с чашки</h2>
+            <p style="margin: 0; max-width: 420px; font-size: 18px; line-height: 1.55">Капучино на овсяном. Проведите курсором по чашке, рисунок на пенке живой.</p>
+            <span style="font-size: 14px; opacity: .85; font-variant-numeric: tabular-nums">Б [—] · Ж [—] · У [—] · [ККАЛ] ккал</span>
+          </div>
+        
+          <div class="fm-txt" data-scene="2" style="position: absolute; left: 0; top: 0; width: 100%; display: flex; flex-direction: column; gap: 20px">
+            <span style="display: flex; align-items: center; gap: 14px; font-size: 14px; letter-spacing: .06em"><span style="display: block; width: 44px; height: 1px; background: currentColor"></span>09:30 · завтрак до 12:00</span>
+            <h2 class="fm-h" style="margin: 0; font-weight: 300; font-size: clamp(48px, 6.2vw, 100px); line-height: .92; letter-spacing: -0.045em; text-wrap: balance">завтрак опускается на стол</h2>
+            <p style="margin: 0; max-width: 420px; font-size: 18px; line-height: 1.55">Сырники с брусникой и гранола с облепихой. Фото сверху — ровно то, что принесут.</p>
+            <span style="font-size: 14px; opacity: .85; font-variant-numeric: tabular-nums">КБЖУ у каждой позиции</span>
+          </div>
+        
+          <div class="fm-txt" data-scene="3" style="position: absolute; left: 0; top: 0; width: 100%; display: flex; flex-direction: column; gap: 20px">
+            <span style="display: flex; align-items: center; gap: 14px; font-size: 14px; letter-spacing: .06em"><span style="display: block; width: 44px; height: 1px; background: currentColor"></span>13:00 · ланч</span>
+            <h2 class="fm-h" style="margin: 0; font-weight: 300; font-size: clamp(48px, 6.2vw, 100px); line-height: .92; letter-spacing: -0.045em; text-wrap: balance">обед без сюрпризов</h2>
+            <p style="margin: 0; max-width: 420px; font-size: 18px; line-height: 1.55">Боул с киноа и тыквой, ржаной тост с лососем. Состав виден сразу, до заказа.</p>
+            <span style="font-size: 14px; opacity: .85; font-variant-numeric: tabular-nums">[ЦЕНА] · [ККАЛ] ккал</span>
+          </div>
+        
+          <div class="fm-txt" data-scene="4" style="position: absolute; left: 0; top: 0; width: 100%; display: flex; flex-direction: column; gap: 20px">
+            <span style="display: flex; align-items: center; gap: 14px; font-size: 14px; letter-spacing: .06em"><span style="display: block; width: 44px; height: 1px; background: currentColor"></span>весь стол</span>
+            <h2 class="fm-h" style="margin: 0; font-weight: 300; font-size: clamp(48px, 6.2vw, 100px); line-height: .92; letter-spacing: -0.045em; text-wrap: balance">соберите свой</h2>
+            <p style="margin: 0; max-width: 420px; font-size: 18px; line-height: 1.55">Любое сочетание из меню, с суммой КБЖУ. Навынос соберём к вашему времени.</p>
+            <span style="font-size: 14px; opacity: .85; font-variant-numeric: tabular-nums"></span>
+          </div>
+        
+          <div class="fm-txt" data-scene="5" style="position: absolute; left: 0; top: 0; width: 100%; display: flex; flex-direction: column; gap: 20px">
+            <span style="display: flex; align-items: center; gap: 14px; font-size: 14px; letter-spacing: .06em"><span style="display: block; width: 44px; height: 1px; background: currentColor"></span>19:00 · вечер</span>
+            <h2 class="fm-h" style="margin: 0; font-weight: 300; font-size: clamp(48px, 6.2vw, 100px); line-height: .92; letter-spacing: -0.045em; text-wrap: balance">ясный вечер</h2>
+            <p style="margin: 0; max-width: 420px; font-size: 18px; line-height: 1.55">Чай с чабрецом и брусникой, когда день уже позади.</p>
+            <span style="font-size: 14px; opacity: .85; font-variant-numeric: tabular-nums"></span>
+          </div>
+        
+      </div>
+
+      <div class="fm-dots" aria-hidden="true" style="position: absolute; z-index: 2; right: clamp(20px, 3.4vw, 48px); top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; align-items: flex-end; gap: 10px">
+        <span class="fm-dot is-on"></span><span class="fm-dot"></span><span class="fm-dot"></span><span class="fm-dot"></span><span class="fm-dot"></span><span class="fm-dot"></span>
+      </div>
+
+      <div style="position: absolute; z-index: 2; left: 0; right: 0; bottom: 0; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 16px; padding: 0 clamp(20px, 3.4vw, 48px) 30px">
+        <span class="fm-bob" aria-hidden="true" style="display: flex; align-items: center; gap: 10px; font-size: 13px; " id="fm-hint">
+          <svg width="14" height="20" viewBox="0 0 14 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><rect x="1" y="1" width="12" height="18" rx="6"></rect><path d="M7 5v3"></path></svg>
+          <span id="fm-hint-t">листайте</span>
+        </span>
+        <a href="#fm-visit" class="fm-cta" style="display: inline-flex; align-items: center; gap: 12px; min-height: 52px; padding: 0 24px; border-radius: 999px; background: #2B241D; color: #F4EEE4; font-size: 15px; text-decoration: none">Заказать навынос</a>
+      </div>
+    </div>
+    <div aria-hidden="true" class="fm-panel"></div>
+    <div aria-hidden="true" class="fm-panel"></div>
+    <div aria-hidden="true" class="fm-panel"></div>
+    <div aria-hidden="true" class="fm-panel"></div>
+    <div aria-hidden="true" class="fm-panel"></div>
+    <div aria-hidden="true" class="fm-panel"></div>
+  </div>
+
+  <section id="fm-visit" class="fm-final" aria-labelledby="fm-visit-h" style="position: relative; min-height: 100vh; display: flex; align-items: center; padding: 80px clamp(20px, 3.4vw, 48px); box-sizing: border-box">
+    <div style="max-width: 460px; display: flex; flex-direction: column; gap: 24px; padding: clamp(28px, 3vw, 40px); border-radius: 28px; background: rgba(247,240,229,.84); backdrop-filter: blur(16px)">
+      <h2 id="fm-visit-h" style="margin: 0; font-weight: 300; font-size: clamp(40px, 4.4vw, 64px); line-height: .95; letter-spacing: -0.04em">стол у окна ждёт</h2>
+      <p style="margin: 0; font-size: 17px; line-height: 1.55">Заходите на завтрак или заберите с собой. Заказ навынос соберём к вашему времени.</p>
+      <div class="fm-rows">
+        <div><span>адрес</span><span>[АДРЕС]</span></div>
+        <div><span>часы</span><span>[ЧАСЫ]</span></div>
+        <div><span>телефон</span><span>[ТЕЛЕФОН]</span></div>
+      </div>
+      <div style="display: flex; flex-wrap: wrap; gap: 12px">
+        <a href="#" class="fm-cta" style="display: inline-flex; align-items: center; min-height: 56px; padding: 0 26px; border-radius: 999px; background: #2B241D; color: #F4EEE4; font-size: 16px; text-decoration: none">Заказать навынос</a>
+        <a href="#" class="fm-cta fm-route" style="display: inline-flex; align-items: center; min-height: 56px; padding: 0 24px; border-radius: 999px; border: 1px solid rgba(43,36,29,.35); font-size: 16px; text-decoration: none">Маршрут</a>
+      </div>
+    </div>
+  </section>
+</div>
+<script>
+
+// Облегчённая версия для слабых устройств и экономии трафика: ниже плотность пикселей, без теней, меньше крошек.
+const __lite = (() => { try { const n = navigator; return !!(n.connection && n.connection.saveData) || (n.deviceMemory && n.deviceMemory <= 4) || (n.hardwareConcurrency && n.hardwareConcurrency <= 4); } catch (e) { return false; } })();
+class DCLogic{constructor(){this.props={quality:__lite?0.7:1,leaves:1,lite:__lite};this.state={};}setState(s){Object.assign(this.state,s);__update();}forceUpdate(){__update();}}
+
+class Component extends DCLogic {
+  static get SCENES() {
+    return [
+      { kicker: 'функциональная кофейня', title: 'всё на столе. всё честно', text: 'Один стол, один день. Листайте, и мы покажем, что на нём будет с утра до вечера.', meta: '', at: 0 },
+      { kicker: '08:00 · утро', title: 'начинается с чашки', text: 'Капучино на овсяном. Проведите курсором по чашке, рисунок на пенке живой.', meta: 'Б [—] · Ж [—] · У [—] · [ККАЛ] ккал', at: 0.17 },
+      { kicker: '09:30 · завтрак до 12:00', title: 'завтрак опускается на стол', text: 'Сырники с брусникой и гранола с облепихой. Фото сверху — ровно то, что принесут.', meta: 'КБЖУ у каждой позиции', at: 0.34 },
+      { kicker: '13:00 · ланч', title: 'обед без сюрпризов', text: 'Боул с киноа и тыквой, ржаной тост с лососем. Состав виден сразу, до заказа.', meta: '[ЦЕНА] · [ККАЛ] ккал', at: 0.52 },
+      { kicker: 'весь стол', title: 'соберите свой', text: 'Любое сочетание из меню, с суммой КБЖУ. Навынос соберём к вашему времени.', meta: '', at: 0.7 },
+      { kicker: '19:00 · вечер', title: 'ясный вечер', text: 'Чай с чабрецом и брусникой, когда день уже позади.', meta: '', at: 0.86 }
+    ];
+  }
+
+  componentWillUnmount() { this.stopGL(); }
+
+  stopGL() {
+    if (this._raf) cancelAnimationFrame(this._raf);
+    this._raf = null;
+    if (this._wait) clearTimeout(this._wait);
+    if (this._ro) this._ro.disconnect();
+    this._ro = null;
+    if (this._host && this._handlers) this._handlers.forEach(([ev, fn]) => this._host.removeEventListener(ev, fn));
+    this._host = null; this._handlers = null;
+    if (this._renderer) { this._renderer.dispose(); this._renderer = null; }
+  }
+
+  startGL(cv) {
+    const T = window.THREE;
+    if (!T) { this._wait = setTimeout(() => { if (this._cv === cv) this.startGL(cv); }, 120); return; }
+    // Без поддержки графики сцена не запускается: остаются фото первого кадра, тексты и навигация.
+    const probe = document.createElement('canvas');
+    if (!(probe.getContext('webgl2') || probe.getContext('webgl'))) return;
+    let renderer;
+    try { renderer = new T.WebGLRenderer({ canvas: cv, antialias: true, alpha: false, powerPreference: 'high-performance' }); } catch (e) { return; }
+    this._renderer = renderer;
+    if ('outputColorSpace' in renderer) renderer.outputColorSpace = T.SRGBColorSpace; else renderer.outputEncoding = T.sRGBEncoding;
+    renderer.shadowMap.enabled = !this.props.lite;
+    renderer.shadowMap.type = T.PCFSoftShadowMap;
+    const scene = new T.Scene();
+    const bg = new T.Color('#E3DBCD');
+    scene.background = bg;
+    scene.fog = new T.Fog(bg, 14, 30);
+    const cam = new T.PerspectiveCamera(32, 1, 0.1, 80);
+
+    const loader = new T.TextureLoader();
+    const tex = (url, rep) => {
+      const t = loader.load(url);
+      if (T.SRGBColorSpace) t.colorSpace = T.SRGBColorSpace; else t.encoding = T.sRGBEncoding;
+      t.anisotropy = renderer.capabilities.getMaxAnisotropy();
+      if (rep) { t.wrapS = t.wrapT = T.RepeatWrapping; t.repeat.set(rep, rep); }
+      return t;
+    };
+
+    const hemi = new T.HemisphereLight(0xfff6ea, 0xd8c8b0, 1.0);
+    scene.add(hemi);
+    const sun = new T.DirectionalLight(0xffffff, 0.55);
+    sun.castShadow = true;
+    sun.shadow.mapSize.set(2048, 2048);
+    sun.shadow.camera.left = -8; sun.shadow.camera.right = 8; sun.shadow.camera.top = 8; sun.shadow.camera.bottom = -8;
+    sun.shadow.camera.far = 30; sun.shadow.radius = 6; sun.shadow.bias = -0.0005;
+    scene.add(sun); scene.add(sun.target);
+
+    const table = new T.Mesh(new T.PlaneGeometry(40, 40), new T.MeshBasicMaterial({ map: tex('assets/images/linen.webp', 9), color: 0xffffff }));
+    table.rotation.x = -Math.PI / 2;
+    table.position.x = 3;
+    scene.add(table);
+    const catcher = new T.Mesh(new T.PlaneGeometry(40, 40), new T.ShadowMaterial({ opacity: 0.22, color: 0x3a2412 }));
+    catcher.rotation.x = -Math.PI / 2; catcher.position.set(3, 0.002, 0); catcher.receiveShadow = true;
+    scene.add(catcher);
+
+    const leafMat = new T.ShaderMaterial({
+      transparent: true, depthWrite: false,
+      uniforms: { uTime: { value: 0 }, uAmt: { value: 1 }, uOff: { value: new T.Vector2() } },
+      vertexShader: 'varying vec2 vW;void main(){vec4 w=modelMatrix*vec4(position,1.);vW=w.xz;gl_Position=projectionMatrix*viewMatrix*w;}',
+      fragmentShader: `precision highp float;varying vec2 vW;uniform float uTime;uniform float uAmt;uniform vec2 uOff;
+        float h(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
+        float n(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(h(i),h(i+vec2(1,0)),f.x),mix(h(i+vec2(0,1)),h(i+vec2(1,1)),f.x),f.y);}
+        float fb(vec2 p){float v=0.,a=.5;for(int i=0;i<5;i++){v+=a*n(p);p=mat2(.8,.6,-.6,.8)*p*2.03;a*=.5;}return v;}
+        void main(){vec2 p=vW*.45+uOff;float t=uTime*.04;
+          float f=fb(p+.025*vec2(sin(uTime*.5+p.y*3.),cos(uTime*.45+p.x*3.)));
+          float a=smoothstep(.52,.57,f)*.17*uAmt;
+          gl_FragColor=vec4(.18,.14,.16,a);}`
+    });
+    const leaf = new T.Mesh(new T.PlaneGeometry(40, 40), leafMat);
+    leaf.rotation.x = -Math.PI / 2; leaf.position.set(3, 0.45, 0); leaf.renderOrder = 10;
+    scene.add(leaf);
+
+    const shadowTex = (() => {
+      const c = document.createElement('canvas'); c.width = c.height = 128;
+      const g = c.getContext('2d'); const gr = g.createRadialGradient(64, 64, 10, 64, 64, 64);
+      gr.addColorStop(0, 'rgba(50,32,18,0.55)'); gr.addColorStop(0.55, 'rgba(50,32,18,0.28)'); gr.addColorStop(1, 'rgba(50,32,18,0)');
+      g.fillStyle = gr; g.fillRect(0, 0, 128, 128);
+      return new T.CanvasTexture(c);
+    })();
+
+    const dishDefs = [
+      { k: 'cap', url: 'assets/images/cappuccino.webp', p: [0, 0, 0], s: 1.25, r: 0.2, drop: 0 },
+      { k: 'syr', url: 'assets/images/syrniki.webp', p: [2.35, 0, -0.55], s: 1.6, r: -0.4, drop: 1 },
+      { k: 'gra', url: 'assets/images/granola.webp', p: [1.05, 0, 1.15], s: 1.35, r: 0.9, drop: 0 },
+      { k: 'bowl', url: 'assets/images/bowl.webp', p: [4.55, 0, 0.35], s: 1.7, r: 0.3, drop: 2 },
+      { k: 'toast', url: 'assets/images/toast.webp', p: [6.3, 0, 1.75], s: 1.35, r: -0.6, drop: 2 },
+      { k: 'tea', url: 'assets/images/tea.webp', p: [8.4, 0, 0.1], s: 1.15, r: 0.5, drop: 3 }
+    ];
+    const cupUniforms = { uStir: { value: 0 }, uPtr: { value: new T.Vector2(0.5, 0.5) }, uTime: { value: 0 } };
+    const dishes = dishDefs.map((d, i) => {
+      const g = new T.Group();
+      const map = tex(d.url);
+      let mat;
+      if (d.k === 'cap') {
+        mat = new T.MeshBasicMaterial({ map, transparent: true, alphaTest: 0.02 });
+        mat.onBeforeCompile = (sh) => {
+          Object.assign(sh.uniforms, cupUniforms);
+          sh.fragmentShader = 'uniform float uStir;uniform vec2 uPtr;uniform float uTime;\n' + sh.fragmentShader.replace('#include <map_fragment>', `
+            vec2 cuv=vMapUv; vec2 C=vec2(.47,.555); float R=.26;
+            vec2 dd=cuv-C; float rr=length(dd);
+            if(rr<R){ vec2 pd=uPtr-C; pd*=min(1.,R*.8/max(length(pd),.0001)); vec2 q=dd-pd;
+              float fall=exp(-dot(q,q)/(R*R*.2)); float an=uStir*2.4*fall+.04*sin(uTime*.9+rr*50.)*(1.-rr/R);
+              float c=cos(an),s=sin(an); vec2 d2=pd+mat2(c,-s,s,c)*q; d2=mix(dd,d2,smoothstep(R,R*.85,rr)); cuv=C+d2; }
+            vec4 sampledDiffuseColor=texture2D(map,cuv);
+            diffuseColor*=sampledDiffuseColor;`);
+        };
+      } else {
+        mat = new T.MeshBasicMaterial({ map, transparent: true, alphaTest: 0.02 });
+      }
+      const plane = new T.Mesh(new T.PlaneGeometry(d.s, d.s), mat);
+      plane.rotation.x = -Math.PI / 2; plane.position.y = 0.03; plane.renderOrder = 5;
+      const sh = new T.Mesh(new T.PlaneGeometry(d.s * 1.12, d.s * 1.12), new T.MeshBasicMaterial({ map: shadowTex, transparent: true, depthWrite: false }));
+      sh.rotation.x = -Math.PI / 2; sh.position.y = 0.012; sh.renderOrder = 4;
+      g.add(sh); g.add(plane);
+      g.position.set(d.p[0], 0, d.p[2]);
+      g.rotation.y = d.r;
+      scene.add(g);
+      return { g, plane, sh, d };
+    });
+
+    const crumbs = [];
+    let seed = 7; const rnd = (a, b) => { seed = (seed * 16807) % 2147483647; return a + ((seed - 1) / 2147483646) * (b - a); };
+    const berryMat = new T.MeshStandardMaterial({ color: 0x9c0e22, roughness: 0.28, metalness: 0 });
+    const buckMat = new T.MeshStandardMaterial({ color: 0xf07a12, roughness: 0.32 });
+    const beanMat = new T.MeshStandardMaterial({ color: 0x4a2a16, roughness: 0.5 });
+    const nutMat = new T.MeshStandardMaterial({ color: 0xe8d3a8, roughness: 0.6 });
+    const sph = new T.SphereGeometry(1, 20, 14);
+    const addCrumb = (mat, sx, sy, sz, x, z, drop) => {
+      const m = new T.Mesh(sph, mat); m.scale.set(sx, sy, sz); m.castShadow = true;
+      const home = new T.Vector3(x, sy, z);
+      m.position.copy(home); m.rotation.y = rnd(0, 6.28);
+      scene.add(m); crumbs.push({ m, home, drop, ph: rnd(0, 6.28), sp: rnd(0.6, 1.4) });
+    };
+    for (let i = 0; i < (this.props.lite ? 5 : 9); i++) addCrumb(berryMat, 0.055, 0.055, 0.055, rnd(0.4, 9.5), rnd(-1.8, 2.8), i % 4);
+    for (let i = 0; i < (this.props.lite ? 3 : 5); i++) addCrumb(buckMat, 0.055, 0.05, 0.065, rnd(0, 3), rnd(-0.5, 2.6), 1);
+    for (let i = 0; i < (this.props.lite ? 5 : 9); i++) addCrumb(beanMat, 0.06, 0.04, 0.085, rnd(0.4, 9.5), rnd(-2, 2.8), i % 4);
+    for (let i = 0; i < (this.props.lite ? 4 : 8); i++) addCrumb(nutMat, 0.03, 0.025, 0.06, rnd(0.4, 9.5), rnd(-1.8, 2.8), i % 4);
+    crumbs.forEach((c) => {
+      for (let k = 0; k < 6; k++) {
+        const ok = dishDefs.every((d) => Math.hypot(c.home.x - d.p[0], c.home.z - d.p[2]) > d.s * 0.52);
+        if (ok) break;
+        c.home.x = rnd(0.4, 9.5); c.home.z = rnd(-2, 2.8);
+      }
+      c.m.position.copy(c.home);
+    });
+
+    const steamMat = new T.ShaderMaterial({
+      transparent: true, depthWrite: false, blending: T.AdditiveBlending,
+      uniforms: { uTime: { value: 0 }, uAmt: { value: 1 } },
+      vertexShader: 'varying vec2 vUv;void main(){vUv=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}',
+      fragmentShader: `precision highp float;varying vec2 vUv;uniform float uTime;uniform float uAmt;
+        float h(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
+        float n(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(h(i),h(i+vec2(1,0)),f.x),mix(h(i+vec2(0,1)),h(i+vec2(1,1)),f.x),f.y);}
+        void main(){vec2 p=vUv;float x=p.x-.5+.08*sin(p.y*6.-uTime*1.2)*p.y;
+          float m=smoothstep(.22,0.,abs(x))*smoothstep(0.,.25,p.y)*smoothstep(1.,.45,p.y);
+          float s=n(vec2(x*7.,p.y*4.-uTime*.7))*n(vec2(x*13.,p.y*7.-uTime*1.1));
+          float a=m*smoothstep(.12,.45,s)*.32*uAmt;gl_FragColor=vec4(vec3(1.)*a,a);}`
+    });
+    const steam = new T.Mesh(new T.PlaneGeometry(0.9, 1.6), steamMat);
+    steam.position.set(-0.05, 0.85, 0.05); steam.renderOrder = 20;
+    scene.add(steam);
+
+    const host = cv.closest('[data-host]') || cv.parentNode; this._host = host;
+    const m = { x: 0, y: 0, tx: 0, ty: 0, stir: 0, cu: new T.Vector2(0.5, 0.5) };
+    const ray = new T.Raycaster(); const ndc = new T.Vector2();
+    let lastHit = null;
+    const onMove = (e) => {
+      const r = host.getBoundingClientRect();
+      ndc.set(((e.clientX - r.left) / r.width) * 2 - 1, -(((e.clientY - r.top) / r.height) * 2 - 1));
+      m.tx = ndc.x; m.ty = ndc.y;
+      ray.setFromCamera(ndc, cam);
+      const hit = ray.intersectObject(dishes[0].plane)[0];
+      if (hit && hit.uv) {
+        if (lastHit) {
+          const dx = hit.uv.x - lastHit.x, dy = hit.uv.y - lastHit.y;
+          const cx = lastHit.x - 0.47, cy = lastHit.y - 0.555;
+          const cross = cx * dy - cy * dx;
+          m.stir = Math.max(-2.6, Math.min(2.6, m.stir + Math.sign(cross || 1) * Math.min(0.08, Math.hypot(dx, dy)) * 9));
+        }
+        m.cu.set(hit.uv.x, hit.uv.y); lastHit = hit.uv.clone();
+      } else lastHit = null;
+    };
+    this._handlers = [['pointermove', onMove]];
+    this._handlers.forEach(([ev, fn]) => host.addEventListener(ev, fn));
+
+    const resize = () => {
+      const r = cv.getBoundingClientRect();
+      const pr = Math.min(window.devicePixelRatio || 1, 2) * (this.props.quality ?? 1);
+      renderer.setPixelRatio(pr); renderer.setSize(Math.max(1, r.width), Math.max(1, r.height), false);
+      cam.aspect = Math.max(0.1, r.width / Math.max(1, r.height)); cam.updateProjectionMatrix();
+    };
+    resize();
+    this._ro = new ResizeObserver(resize); this._ro.observe(cv);
+
+    const V = (x, y, z) => new T.Vector3(x, y, z);
+    const KEYS = [
+      { t: 0.0, pos: V(0.45, 4.6, 0.62), look: V(0.45, 0, 0.6) },
+      { t: 0.17, pos: V(-0.1, 2.5, 0.75), look: V(0.0, 0, 0.05) },
+      { t: 0.34, pos: V(1.3, 6.4, 1.9), look: V(1.4, 0, 0.35) },
+      { t: 0.52, pos: V(5.75, 5.2, 3.3), look: V(5.45, 0, 1.0) },
+      { t: 0.7, pos: V(5.6, 12.5, 2.6), look: V(5.6, 0, 0.6) },
+      { t: 0.86, pos: V(8.45, 3.4, 1.6), look: V(8.4, 0, 0.1) },
+      { t: 1.0, pos: V(8.45, 2.2, 0.75), look: V(8.4, 0, 0.1) }
+    ];
+    const posCurve = new T.CatmullRomCurve3(KEYS.map((k) => k.pos), false, 'centripetal');
+    const lookCurve = new T.CatmullRomCurve3(KEYS.map((k) => k.look), false, 'centripetal');
+    const ts = KEYS.map((k) => k.t);
+    const mapT = (p) => {
+      let i = 0; while (i < ts.length - 2 && p > ts[i + 1]) i++;
+      let f = (p - ts[i]) / (ts[i + 1] - ts[i]); f = Math.max(0, Math.min(1, f));
+      f = f < 0.5 ? 4 * f * f * f : 1 - Math.pow(-2 * f + 2, 3) / 2;
+      return (i + f) / (ts.length - 1);
+    };
+    const smooth = (a, b, x) => { const t = Math.max(0, Math.min(1, (x - a) / (b - a))); return t * t * (3 - 2 * t); };
+    const lerp = (a, b, k) => a + (b - a) * k;
+    const cMorning = new T.Color(1.0, 0.97, 0.94), cDay = new T.Color(1, 1, 1), cEve = new T.Color(1.0, 0.86, 0.7);
+    const grade = new T.Color();
+    const bgM = new T.Color('#E6DCD0'), bgE = new T.Color('#D9BF9E');
+
+    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let t = 0, last = performance.now(), sp = 0, stirS = 0, shown = false;
+    const tw = { from: 0, to: 0, start: 0 };
+    const ease = (x) => x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+    const pos = new T.Vector3(), look = new T.Vector3();
+    const loop = (now) => {
+      const dt = Math.min(0.05, (now - last) / 1000); last = now;
+      t += dt;
+      const target = this._progress || 0;
+      if (target !== tw.to) { tw.from = sp; tw.to = target; tw.start = now; }
+      const dur = 2600 * Math.max(0.6, Math.min(1.6, Math.abs(tw.to - tw.from) / 0.17));
+      sp = reduce ? tw.to : tw.from + (tw.to - tw.from) * ease(Math.min(1, (now - tw.start) / dur));
+      if (this._snap) { sp = target; tw.from = tw.to = target; this._snap = false; }
+      const u = mapT(sp);
+      posCurve.getPoint(u, pos); lookCurve.getPoint(u, look);
+      const a = cam.aspect;
+      if (a < 1) { const k = 1 + (1 - a) * 1.25; pos.sub(look).multiplyScalar(k).add(look); }
+      m.x += (m.tx - m.x) * 0.04; m.y += (m.ty - m.y) * 0.04;
+      cam.position.copy(pos); cam.lookAt(look);
+      const vw = 1000, vh = 1000 / Math.max(0.1, a);
+      const side = 1;
+      if (a >= 1) cam.setViewOffset(vw, vh, -vw * 0.2 * Math.min(1, side), 0, vw, vh);
+      else cam.setViewOffset(vw, vh, 0, vh * 0.16, vw, vh);
+
+      const tod = sp;
+      if (tod < 0.5) grade.copy(cMorning).lerp(cDay, smooth(0.05, 0.5, tod)); else grade.copy(cDay).lerp(cEve, smooth(0.62, 0.95, tod));
+      table.material.color.copy(grade);
+      dishes.forEach((o) => { o.plane.material.color.copy(grade); });
+      scene.background.copy(bgM).lerp(bgE, smooth(0.62, 0.95, tod));
+      scene.fog.color.copy(scene.background);
+      const az = lerp(-2.3, 2.2, tod);
+      const el = 0.9 - 0.45 * Math.abs(tod - 0.5) * 2;
+      sun.position.set(look.x + Math.cos(az) * 6, 4 + el * 6, look.z + Math.sin(az) * 4);
+      sun.target.position.copy(look);
+      sun.intensity = 0.45 + 0.25 * smooth(0.6, 0.95, tod);
+      sun.color.copy(grade);
+      leafMat.uniforms.uTime.value = t; leafMat.uniforms.uAmt.value = (this.props.leaves ?? 1) * (0.7 + 0.5 * smooth(0.6, 0.95, tod));
+      leafMat.uniforms.uOff.value.set(0, 0);
+
+      dishes.forEach((o) => {
+        const d = o.d;
+        let k = 1;
+        if (d.drop === 1) k = smooth(0.2, 0.34, sp);
+        else if (d.drop === 2) k = smooth(0.38, 0.52, sp);
+        else if (d.drop === 3) k = smooth(0.72, 0.86, sp);
+        const h = (1 - k) * 4.5;
+        o.g.position.y = h;
+        o.g.rotation.y = d.r;
+        o.plane.scale.setScalar(1 + (1 - k) * 0.08);
+        o.plane.material.opacity = smooth(0, 0.35, k);
+        o.sh.material.opacity = k * (0.5 + 0.5 * k);
+        o.sh.position.set(0.08 + 0.04 * Math.cos(az), -h + 0.012, 0.1);
+        o.sh.scale.setScalar(1 + (1 - k) * 0.6);
+      });
+      crumbs.forEach((c) => {
+        let k = 1;
+        if (c.drop === 1) k = smooth(0.22, 0.36, sp);
+        else if (c.drop === 2) k = smooth(0.4, 0.54, sp);
+        else if (c.drop === 3) k = smooth(0.74, 0.88, sp);
+        const fall = (1 - k);
+        c.m.position.set(c.home.x, c.home.y + fall * fall * 5 + Math.sin(t * c.sp + c.ph) * 0.0, c.home.z);
+        c.m.visible = k > 0.001;
+      });
+
+      m.stir *= 0.975; stirS += (m.stir - stirS) * 0.07;
+      cupUniforms.uStir.value = stirS; cupUniforms.uPtr.value.copy(m.cu); cupUniforms.uTime.value = t;
+      steamMat.uniforms.uTime.value = t;
+      steamMat.uniforms.uAmt.value = 1 - smooth(0.4, 0.55, sp) + smooth(0.85, 1, sp) * 0;
+      steam.quaternion.copy(cam.quaternion);
+      const tea = dishes[5].g;
+      if (sp > 0.8) { steam.position.set(tea.position.x, 0.8, tea.position.z); steamMat.uniforms.uAmt.value = smooth(0.84, 0.92, sp); }
+      else steam.position.set(-0.05, 0.85, 0.05);
+
+      renderer.render(scene, cam);
+      if (!shown) { shown = true; this.setState({ glReady: true }); }
+      this._raf = requestAnimationFrame(loop);
+    };
+    this._raf = requestAnimationFrame(loop);
+  }
+
+  renderVals() {
+    if (!this._setCanvas) {
+      this._setCanvas = (el) => {
+        if (el && el !== this._cv) { this.stopGL(); this._cv = el; this.startGL(el); }
+        else if (!el) { this.stopGL(); this._cv = null; }
+      };
+      this._setScroller = (el) => {
+        if (this._sc && this._onScroll) this._sc.removeEventListener('scroll', this._onScroll);
+        this._sc = el;
+        if (!el) return;
+        this._onScroll = () => {
+          const sc = Component.SCENES;
+          const idx = Math.max(0, Math.min(sc.length - 1, Math.round(el.scrollTop / Math.max(1, el.clientHeight))));
+          this._progress = idx === sc.length - 1 ? 0.97 : sc[idx].at;
+          if (idx !== this.state.scene) this.setState({ scene: idx });
+          const fin = document.getElementById('fm-visit');
+          const atEnd = !!fin && el.scrollTop >= fin.offsetTop - el.clientHeight * 0.25;
+          if (atEnd !== this._atEnd) { this._atEnd = atEnd; window.dispatchEvent(new CustomEvent('concept:final', { detail: atEnd })); }
+        };
+        el.addEventListener('scroll', this._onScroll, { passive: true });
+        this._onScroll();
+      };
+    }
+    const cur = this.state.scene || 0;
+    const scenes = Component.SCENES.map((s, i) => ({
+      kicker: s.kicker, title: s.title, text: s.text, meta: s.meta,
+      pos: i === 0 ? 'relative' : 'absolute',
+      o: i === cur ? 1 : 0,
+      tr: i === cur ? 'translateY(0)' : (i < cur ? 'translateY(-28px)' : 'translateY(28px)'),
+      dl: i === cur ? '.9s' : '0s',
+      blur: i === cur ? 'blur(0px)' : 'blur(8px)',
+      pe: i === cur ? 'auto' : 'none'
+    }));
+    const dots = Component.SCENES.map((s, i) => ({ w: i === cur ? '44px' : '14px', c: i === cur ? '#2B241D' : 'rgba(43,36,29,.3)' }));
+    return {
+      setCanvas: this._setCanvas, setScroller: this._setScroller, scenes, dots,
+      cvo: this.state.glReady ? 1 : 0,
+      hint: cur === 1 ? 'проведите по чашке' : 'листайте', hintO: cur >= 5 ? 0 : 1
+    };
+  }
+}
+
+const __c=new Component();
+function __update(){
+  const v=__c.renderVals();const cur=__c.state.scene||0;
+  document.querySelectorAll('.fm-txt').forEach(el=>{const i=+el.dataset.scene;el.classList.toggle('is-on',i===cur);el.classList.toggle('is-past',i<cur);el.setAttribute('aria-hidden',i===cur?'false':'true');});
+  document.querySelectorAll('.fm-dot').forEach((el,i)=>el.classList.toggle('is-on',i===cur));
+  document.getElementById('fm-hint-t').textContent=v.hint;document.getElementById('fm-hint').style.opacity=v.hintO;
+  document.getElementById('fm-canvas').classList.toggle('is-ready',!!__c.state.glReady);
+}
+const __v=__c.renderVals();
+__v.setScroller(document.getElementById('fm-scroll'));
+__v.setCanvas(document.getElementById('fm-canvas'));
+__update();
+// Логотип возвращает к первому кадру.
+document.querySelector('.fm-logo').addEventListener('click', (e) => { e.preventDefault(); document.getElementById('fm-scroll').scrollTo({ top: 0, behavior: 'smooth' }); });
+
+</script>
+<script src="concept-card.js" defer data-category="функциональная кофейня" data-tone="light" data-position="bl" data-order='.fm-final a.fm-cta:not(.fm-route)' data-plain='.fm-nav nav a[href="#"], .fm-route'></script>
+</body>
+</html>
