@@ -60,13 +60,32 @@ html,body{height:100%;background:#E3DBCD}
 .fm-dot{display:block;height:2px;width:14px;background:rgba(43,36,29,.3);border-radius:2px}
 .fm-dot.is-on{width:44px;background:#2B241D}
 #fm-hint{transition:opacity .6s}
+/*
+ * Высота сцены — видимая часть экрана. Страница не прокручивается сама (листает внутренний блок),
+ * поэтому нижняя панель браузера на телефоне не прячется, и при 100vh низ сцены уходил под неё.
+ */
+@supports (height: 100svh){
+ #fm-scroll{height:100svh!important}
+ .fm-stage{height:100svh!important;margin-bottom:-100svh!important}
+ .fm-panel{height:100svh}
+ .fm-final{min-height:100svh!important}
+}
+.fm-foot{padding-bottom:max(30px,calc(env(safe-area-inset-bottom) + 18px))!important}
+/* Шапка ниже выреза и строки состояния телефона. */
+.fm-nav{padding-top:max(24px,calc(env(safe-area-inset-top) + 14px))!important}
+@media (max-width: 640px){
+ .fm-copy{bottom:calc(132px + env(safe-area-inset-bottom))!important}
+ .fm-nav{padding-top:max(34px,calc(env(safe-area-inset-top) + 18px))!important;row-gap:14px!important}
+ .fm-foot{padding-bottom:max(34px,calc(env(safe-area-inset-bottom) + 24px))!important}
+ .fm-final{padding-bottom:calc(96px + env(safe-area-inset-bottom))!important}
+}
 /* Финальный блок: строки разделены воздухом, без линий-разделителей. */
 .fm-rows{display:flex;flex-direction:column;gap:14px;font-size:16px}
 .fm-rows>div{display:flex;justify-content:space-between;gap:16px}
 .fm-rows span:first-child{opacity:.7}
 /* Метка «Концепт»: на десктопе над подсказкой «листайте», на телефоне — справа от логотипа (внизу кнопка заказа). */
 concept-card{--cc-font:'Jost','Futura',system-ui,sans-serif;--cc-left:clamp(14px,calc(3.4vw - 6px),42px);--cc-bottom:66px}
-@media (max-width: 640px){concept-card{--cc-left:auto;--cc-bottom:auto;--cc-top:max(16px,env(safe-area-inset-top));--cc-right:12px}}
+@media (max-width: 640px){concept-card{--cc-left:auto;--cc-bottom:auto;--cc-top:max(26px,calc(env(safe-area-inset-top) + 10px));--cc-right:12px}}
 </style>
 <script src="vendor/three.min.js"></script>
 </head>
@@ -145,7 +164,7 @@ concept-card{--cc-font:'Jost','Futura',system-ui,sans-serif;--cc-left:clamp(14px
         <span class="fm-dot is-on"></span><span class="fm-dot"></span><span class="fm-dot"></span><span class="fm-dot"></span><span class="fm-dot"></span><span class="fm-dot"></span>
       </div>
 
-      <div style="position: absolute; z-index: 2; left: 0; right: 0; bottom: 0; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 16px; padding: 0 clamp(20px, 3.4vw, 48px) 30px">
+      <div class="fm-foot" style="position: absolute; z-index: 2; left: 0; right: 0; bottom: 0; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 16px; padding: 0 clamp(20px, 3.4vw, 48px) 30px">
         <span class="fm-bob" aria-hidden="true" style="display: flex; align-items: center; gap: 10px; font-size: 13px; " id="fm-hint">
           <svg width="14" height="20" viewBox="0 0 14 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><rect x="1" y="1" width="12" height="18" rx="6"></rect><path d="M7 5v3"></path></svg>
           <span id="fm-hint-t">листайте</span>
