@@ -74,9 +74,13 @@ html,body{height:100%;background:#E3DBCD}
 /* Шапка ниже выреза и строки состояния телефона. */
 .fm-nav{padding-top:max(24px,calc(env(safe-area-inset-top) + 14px))!important}
 @media (max-width: 640px){
- .fm-copy{bottom:calc(106px + env(safe-area-inset-bottom))!important}
- /* Тексты сцен стоят на одной линии над кнопкой: короткие не висят высоко. */
- .fm-txt:not([data-scene="0"]){top:auto!important;bottom:0}
+ .fm-copy{bottom:calc(132px + env(safe-area-inset-bottom))!important}
+ /* Сдвиг текста каждой сцены вниз — по указанию владельца 2026-10-27 (экран 3 без сдвига). */
+ .fm-txt[data-scene="0"]{top:20px!important}
+ .fm-txt[data-scene="1"]{top:30px!important}
+ .fm-txt[data-scene="3"]{top:10px!important}
+ .fm-txt[data-scene="4"]{top:30px!important}
+ .fm-txt[data-scene="5"]{top:30px!important}
  .fm-nav{padding-top:max(34px,calc(env(safe-area-inset-top) + 18px))!important;row-gap:14px!important}
  .fm-foot{padding-bottom:max(34px,calc(env(safe-area-inset-bottom) + 24px))!important}
  /* Финал помещается в экран целиком: блок плотнее, без прокрутки внутри. */
