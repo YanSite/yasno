@@ -74,7 +74,9 @@ html,body{height:100%;background:#E3DBCD}
 /* Шапка ниже выреза и строки состояния телефона. */
 .fm-nav{padding-top:max(24px,calc(env(safe-area-inset-top) + 14px))!important}
 @media (max-width: 640px){
- .fm-copy{bottom:calc(132px + env(safe-area-inset-bottom))!important}
+ .fm-copy{bottom:calc(106px + env(safe-area-inset-bottom))!important}
+ /* Тексты сцен стоят на одной линии над кнопкой: короткие не висят высоко. */
+ .fm-txt:not([data-scene="0"]){top:auto!important;bottom:0}
  .fm-nav{padding-top:max(34px,calc(env(safe-area-inset-top) + 18px))!important;row-gap:14px!important}
  .fm-foot{padding-bottom:max(34px,calc(env(safe-area-inset-bottom) + 24px))!important}
  /* Финал помещается в экран целиком: блок плотнее, без прокрутки внутри. */
@@ -457,13 +459,17 @@ class Component extends DCLogic {
       const u = mapT(sp);
       posCurve.getPoint(u, pos); lookCurve.getPoint(u, look);
       const a = cam.aspect;
-      if (a < 1) { const k = 1 + (1 - a) * 1.25; pos.sub(look).multiplyScalar(k).add(look); }
+      // Телефон: в сценах с крупной чашкой (утро, вечер) камера чуть дальше и кадр выше, чтобы чашка
+      // не уходила под текст внизу экрана; на невысоких экранах — сильнее.
+      const near = (c) => 1 - smooth(0, 0.1, Math.abs(sp - c));
+      const lift = a < 1 ? Math.max(near(0.17), smooth(0.86, 0.97, sp)) * (1 + Math.max(0, a - 0.5) * 2) : 0;
+      if (a < 1) { const k = 1 + (1 - a) * 1.25 + lift * 0.22; pos.sub(look).multiplyScalar(k).add(look); }
       m.x += (m.tx - m.x) * 0.04; m.y += (m.ty - m.y) * 0.04;
       cam.position.copy(pos); cam.lookAt(look);
       const vw = 1000, vh = 1000 / Math.max(0.1, a);
       const side = 1;
       if (a >= 1) cam.setViewOffset(vw, vh, -vw * 0.2 * Math.min(1, side), 0, vw, vh);
-      else cam.setViewOffset(vw, vh, 0, vh * 0.16, vw, vh);
+      else cam.setViewOffset(vw, vh, 0, vh * (0.16 + 0.04 * lift), vw, vh);
 
       const tod = sp;
       if (tod < 0.5) grade.copy(cMorning).lerp(cDay, smooth(0.05, 0.5, tod)); else grade.copy(cDay).lerp(cEve, smooth(0.62, 0.95, tod));
