@@ -82,7 +82,7 @@ html,body{height:100%;background:#E3DBCD}
  .fm-txt[data-scene="4"]{top:50px!important}
  /* «Ясный вечер» — низом к кнопке, в 14px над ней на любом телефоне. */
  .fm-txt[data-scene="5"]{top:auto!important;bottom:-32px}
- .fm-nav{padding-top:max(34px,calc(env(safe-area-inset-top) + 18px))!important;row-gap:14px!important}
+ .fm-nav{padding-top:30px!important;row-gap:14px!important}
  .fm-foot{padding-bottom:max(34px,calc(env(safe-area-inset-bottom) + 24px))!important}
  /* Финал помещается в экран целиком: блок плотнее, без прокрутки внутри. */
  .fm-final{padding:max(60px,calc(env(safe-area-inset-top) + 44px)) 16px calc(40px + env(safe-area-inset-bottom))!important}
@@ -98,7 +98,7 @@ html,body{height:100%;background:#E3DBCD}
 .fm-rows span:first-child{opacity:.7}
 /* Метка «Концепт»: на десктопе над подсказкой «листайте», на телефоне — справа от логотипа (внизу кнопка заказа). */
 concept-card{--cc-font:'Jost','Futura',system-ui,sans-serif;--cc-left:clamp(14px,calc(3.4vw - 6px),42px);--cc-bottom:66px}
-@media (max-width: 640px){concept-card{--cc-left:auto;--cc-bottom:auto;--cc-top:max(26px,calc(env(safe-area-inset-top) + 10px));--cc-right:12px}}
+@media (max-width: 640px){concept-card{--cc-left:auto;--cc-bottom:auto;--cc-top:22px;--cc-right:12px}}
 </style>
 <script src="vendor/three.min.js"></script>
 </head>
