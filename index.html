@@ -96,9 +96,10 @@ html,body{height:100%;background:#E3DBCD}
 .fm-rows{display:flex;flex-direction:column;gap:14px;font-size:16px}
 .fm-rows>div{display:flex;justify-content:space-between;gap:16px}
 .fm-rows span:first-child{opacity:.7}
-/* Метка «Концепт»: на десктопе над подсказкой «листайте», на телефоне — справа от логотипа (внизу кнопка заказа). */
+/* Метка «Концепт»: на десктопе над подсказкой «листайте», на телефоне — внизу справа, на одной линии с кнопкой заказа
+   (вверху она могла уйти под строку состояния телефона). */
 concept-card{--cc-font:'Jost','Futura',system-ui,sans-serif;--cc-left:clamp(14px,calc(3.4vw - 6px),42px);--cc-bottom:66px}
-@media (max-width: 640px){concept-card{--cc-left:auto;--cc-bottom:auto;--cc-top:22px;--cc-right:12px}}
+@media (max-width: 640px){concept-card{--cc-left:auto;--cc-top:auto;--cc-right:14px;--cc-bottom:max(38px,calc(env(safe-area-inset-bottom) + 28px))}}
 </style>
 <script src="vendor/three.min.js"></script>
 </head>
